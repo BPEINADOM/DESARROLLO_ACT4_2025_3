@@ -1,4 +1,4 @@
-package co.edu.udec.lavadero.domain;
+package co.edu.udec.lavadero.domain.model;
 
 import java.time.LocalDate;
 
