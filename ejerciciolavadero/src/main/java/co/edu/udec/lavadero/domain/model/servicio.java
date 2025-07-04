@@ -2,7 +2,7 @@ package co.edu.udec.lavadero.domain.model;
 
 import java.time.LocalDate;
 
-public class servicio {
+public class Servicio {
     private int servicio_id;
     private String nombre;
     private String descripcion;
@@ -21,7 +21,7 @@ public class servicio {
     private int cubiculo_id;
     private int solicitud_servicio_id;
 
-    public servicio(int servicio_id, String nombre, String descripcion, LocalDate fecha_inicio,
+    public Servicio(int servicio_id, String nombre, String descripcion, LocalDate fecha_inicio,
             LocalDate fecha_finalizacion, String hora_inicio, String hora_finalizacion, String nombre_empleado,
             int precio, int porcentaje_iva, int valor_iva, int precio_iva, int precio_iva_descuento, int precio_total,
             int cliente_id, int cubiculo_id, int solicitud_servicio_id) {
