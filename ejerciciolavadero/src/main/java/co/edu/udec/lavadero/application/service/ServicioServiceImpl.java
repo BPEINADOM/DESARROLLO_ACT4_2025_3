@@ -1,6 +1,7 @@
 package co.edu.udec.lavadero.application.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import co.edu.udec.lavadero.application.ports.in.ServicioServicePort;
 import co.edu.udec.lavadero.application.ports.out.ServicioPersistencePort;
@@ -26,10 +27,10 @@ public class ServicioServiceImpl implements ServicioServicePort {
     }
 
     @Override
-    public Servicio obtenerPorID(int servicio_id) {
-        return servicioPersistencePort.buscarPorID(servicio_id)
-        .orElseThrow(() -> new RuntimeException("Servicio con ID " + servicio_id + " no encontrado."));
+    public Optional<Servicio> obtenerPorID(int servicio_id) {
+        return servicioPersistencePort.buscarPorID(servicio_id);
     }
+
 
     @Override
     public void actualizar(Servicio servicio) {
