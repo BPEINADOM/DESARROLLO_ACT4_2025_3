@@ -28,13 +28,14 @@ public class ServicioServiceImpl implements ServicioServicePort {
     @Override
     public Servicio obtenerPorID(int servicio_id) {
        return servicioPersistencePort.buscarPorID(servicio_id)
-       .orElseThrow(() -> new ServicioNoEncontradoException(servicio_id));
+       .orElseThrow(() -> new ServicioNoEncontradoException("Servicio con ID " + servicio_id + " no encontrado."));
     }
 
     @Override
     public void actualizar(Servicio servicio) {
         if (!servicioPersistencePort.buscarPorID(servicio.getServicio_id()).isPresent()) {
-            throw new RuntimeException("Servicio con ID" + servicio.getServicio_id() + "no encontrado para actualizar.");
+            throw new ServicioNoEncontradoException("Servicio con ID " + servicio.getServicio_id() + " no encontrado para actualizar.");
+
         }
     }
 
