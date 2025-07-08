@@ -2,10 +2,10 @@ package co.edu.udec.lavadero.adapters.in;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 import co.edu.udec.lavadero.application.ports.in.ServicioServicePort;
+import co.edu.udec.lavadero.domain.exception.ServicioNoEncontradoException;
 import co.edu.udec.lavadero.domain.model.Servicio;
 
 public class ServicioConsoleController {
@@ -60,32 +60,33 @@ public class ServicioConsoleController {
     private void buscarporID() {
         System.out.println("Inserte el ID del servicio a buscar: ");
         int servicio_id = Integer.parseInt(scanner.nextLine());
-        Optional<Servicio> servicio = servicioService.obtenerPorID(servicio_id);
 
-        if (servicio.isPresent()) {
-            Servicio s = servicio.get();
-            System.out.printf("Nombre: %s\nDescripción: %s\nPrecio total: %d\n",
-                s.getNombre(), s.getDescripcion(), s.getPrecio_total());
-        } else {
-            System.out.println("Servicio no encontrado.");
+        try {
+           Servicio servicio = servicioService.obtenerPorID(servicio_id);
+           System.out.printf("Nombre: %s\nDescripción: %s\nPrecio total: %d\n",
+              servicio.getNombre(), servicio.getDescripcion(), servicio.getPrecio_total());
+
+        } catch (ServicioNoEncontradoException e) {
+           System.out.println(e.getMessage());
         }
     }
 
     private void actualizar() {
         System.out.println("Inserte el ID del servicio a actualizar: ");
         int servicio_id = Integer.parseInt(scanner.nextLine());
-        Optional<Servicio> servicio = servicioService.obtenerPorID(servicio_id);
 
-        if (servicio.isEmpty()) {
-            System.out.println("Servicio no encontrado.");
-            return;
-        }
+        try {
+            servicioService.obtenerPorID(servicio_id);
 
-       System.out.println("---------- Actualizar Servicio ----------");
-       Servicio servicioActualizado = capturarDatosServicio(false);
-       servicioActualizado.setServicio_id(servicio_id);
-       servicioService.actualizar(servicioActualizado);
-       System.out.println("Servicio actualizado correctamente.");
+            System.out.println("---------- Actualizar Servicio ----------");
+            Servicio servicioActualizado = capturarDatosServicio(false);
+            servicioActualizado.setServicio_id(servicio_id);
+            servicioService.actualizar(servicioActualizado);
+            System.out.println("Servicio actualizado correctamente.");
+
+        } catch (ServicioNoEncontradoException e) {
+        System.out.println(e.getMessage());
+    }
 }
 
     private void borrar() {

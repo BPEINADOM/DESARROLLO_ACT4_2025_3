@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import co.edu.udec.lavadero.application.ports.in.ServicioServicePort;
 import co.edu.udec.lavadero.application.ports.out.ServicioPersistencePort;
+import co.edu.udec.lavadero.domain.exception.ServicioNoEncontradoException;
 import co.edu.udec.lavadero.domain.model.Servicio;
 
 public class ServicioServiceImpl implements ServicioServicePort {
@@ -20,17 +21,16 @@ public class ServicioServiceImpl implements ServicioServicePort {
         servicioPersistencePort.guardar(servicio);
     }
 
-
     @Override
     public List<Servicio> listarTodos() {
         return servicioPersistencePort.buscarTodos();
     }
 
     @Override
-    public Optional<Servicio> obtenerPorID(int servicio_id) {
-        return servicioPersistencePort.buscarPorID(servicio_id);
+    public Servicio obtenerPorID(int servicio_id) {
+       return servicioPersistencePort.buscarPorID(servicio_id)
+       .orElseThrow(() -> new ServicioNoEncontradoException(servicio_id));
     }
-
 
     @Override
     public void actualizar(Servicio servicio) {
