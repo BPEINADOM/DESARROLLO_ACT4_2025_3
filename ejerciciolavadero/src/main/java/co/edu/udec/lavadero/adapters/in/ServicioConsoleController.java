@@ -81,11 +81,12 @@ public class ServicioConsoleController {
             return;
         }
 
-        System.out.println("---------- Actualizar Servicio ----------");
-        Servicio servicioActualizado = capturarDatosServicio(true);
-        servicioService.actualizar(servicioActualizado);
-        System.out.println("Servicio actualizado correctamente.");
-    }
+       System.out.println("---------- Actualizar Servicio ----------");
+       Servicio servicioActualizado = capturarDatosServicio(false);
+       servicioActualizado.setServicio_id(servicio_id);
+       servicioService.actualizar(servicioActualizado);
+       System.out.println("Servicio actualizado correctamente.");
+}
 
     private void borrar() {
         System.out.println("Inserte el ID del servicio a eliminar: ");
@@ -96,15 +97,19 @@ public class ServicioConsoleController {
     }
 
     private Servicio capturarDatosServicio(boolean incluirId) {
-        int id = incluirId ? Integer.parseInt(scannerLine("ID del servicio existente: ")) : 0;
+        int id = 0;
+        if (incluirId) {
+        System.out.print("ID del servicio: ");
+        id = Integer.parseInt(scannerLine(""));
+     }
 
         String nombre = scannerLine("Nombre: ");
-        String descripcion = scannerLine("Descripción: ");
+        String descripcion = scannerLine("Descripción: ").replace("\0", "");
         LocalDate fechaInicio = LocalDate.parse(scannerLine("Fecha inicio: "));
         LocalDate fechaFin = LocalDate.parse(scannerLine("Fecha finalización: "));
-        String horaInicio = scannerLine("Hora inicio: ");
-        String horaFin = scannerLine("Hora finalización: ");
-        String nombreEmpleado = scannerLine("Nombre del empleado: ");
+        String horaInicio = scannerLine("Hora inicio (HH:mm): ").replace("\0", "");
+        String horaFin = scannerLine("Hora finalización (HH:mm): ").replace("\0", "");
+        String nombreEmpleado = scannerLine("Nombre del empleado: ").replace("\0", "");
         int precio = Integer.parseInt(scannerLine("Precio base: "));
         int porcentajeIva = Integer.parseInt(scannerLine("Porcentaje IVA: "));
         int valorIva = Integer.parseInt(scannerLine("Valor IVA: "));
