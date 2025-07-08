@@ -8,11 +8,10 @@ public class DocumentoSolicitudVentaDto {
     public String color;
     public String servicio;
     public String clienteNombre;
-    public String clienteDocumento;
     public String clienteCorreo;
-    
+
     public DocumentoSolicitudVentaDto(int solicitud_servicio_id, String placa, String marca, String tipo, String color,
-            String servicio, String clienteNombre, String clienteDocumento, String clienteCorreo) {
+            String servicio, String clienteNombre, String clienteCorreo) {
         this.solicitud_servicio_id = solicitud_servicio_id;
         this.placa = placa;
         this.marca = marca;
@@ -20,7 +19,6 @@ public class DocumentoSolicitudVentaDto {
         this.color = color;
         this.servicio = servicio;
         this.clienteNombre = clienteNombre;
-        this.clienteDocumento = clienteDocumento;
         this.clienteCorreo = clienteCorreo;
     }
 }

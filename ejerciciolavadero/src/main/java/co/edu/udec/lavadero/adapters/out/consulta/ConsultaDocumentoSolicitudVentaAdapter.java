@@ -23,12 +23,14 @@ public class ConsultaDocumentoSolicitudVentaAdapter implements DocumentoSolicitu
         List<DocumentoSolicitudVentaDto> lista = new ArrayList<>();
 
         String sql = """
-            SELECT svs.solicitud_servicio_id, svs.placa, svs.marca, svs.tipo, svs.color, svs.servicio,
-                   c.nombres || ' ' || c.apellidos AS cliente_nombre,
-                   c.numero_documento, c.correo
-            FROM solicitudventaservicio svs
-            JOIN cliente c ON svs.cliente_id = c.cliente_id
-        """;
+    SELECT svs.solicitud_servicio_id, svs.placa, svs.marca, svs.tipo, svs.color, svs.servicio,
+           COALESCE(c.nombre, '') || ' ' || COALESCE(c.apellido, '') AS cliente_nombre, c.correo
+    FROM solicitudventaservicio svs
+    JOIN cliente c ON svs.cliente_id = c.cliente_id
+""";
+
+
+
 
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -41,7 +43,6 @@ public class ConsultaDocumentoSolicitudVentaAdapter implements DocumentoSolicitu
                     rs.getString("color"),
                     rs.getString("servicio"),
                     rs.getString("cliente_nombre"),
-                    rs.getString("numero_documento"),
                     rs.getString("correo")
                 ));
             }

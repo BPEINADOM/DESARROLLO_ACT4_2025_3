@@ -19,9 +19,9 @@ public class ConsultaDocumentoSolicitudVentaConsoleController {
         for (DocumentoSolicitudVentaDto dto : lista) {
             System.out.printf(
                 "Solicitud: %d | Placa: %s | Marca: %s | Tipo: %s | Color: %s | Servicio: %s\n" +
-                "Cliente: %s | Documento: %s | Correo: %s\n\n",
+                "Cliente: %s | Correo: %s\n\n",
                 dto.solicitud_servicio_id, dto.placa, dto.marca, dto.tipo, dto.color, dto.servicio,
-                dto.clienteNombre, dto.clienteDocumento, dto.clienteCorreo
+                dto.clienteNombre, dto.clienteCorreo
             );
         }
     }
