@@ -18,21 +18,25 @@ public class ServicioPersistenceAdapter implements ServicioPersistencePort {
     @Override
     public void guardar(Servicio servicio) {
         String sql = """
-            INSERT INTO servicio (
-                servicio_id, nombre, descripcion, fecha_inicio, fecha_finalizacion,
-                hora_inicio, hora_finalizacion, nombre_empleado, precio, porcentaje_iva,
-                valor_iva, precio_iva, precio_iva_descuento, precio_total,
-                cliente_id, cubiculo_id, solicitud_servicio_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """;
+        INSERT INTO servicio (
+            nombre, descripcion, fecha_inicio, fecha_finalizacion,
+            hora_inicio, hora_finalizacion, nombre_empleado, precio, porcentaje_iva,
+            valor_iva, precio_iva, precio_iva_descuento, precio_total,
+            cliente_id, cubiculo_id, solicitud_servicio_id
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        RETURNING servicio_id
+    """;
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             mapToStatement(servicio, stmt);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al guardar servicio", e);
+          ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            servicio.setServicio_id(rs.getInt("servicio_id"));
         }
+    } catch (SQLException e) {
+        throw new RuntimeException("Error al guardar servicio", e);
     }
+}
 
     @Override
     public List<Servicio> buscarTodos() {
@@ -79,9 +83,14 @@ public class ServicioPersistenceAdapter implements ServicioPersistencePort {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             mapToStatement(servicio, stmt);
             stmt.setInt(17, servicio.getServicio_id());
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+
+        if (rowsAffected == 0) {
+            throw new RuntimeException("No se encontró el servicio con ID " + servicio.getServicio_id());
+        }
+
         } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar el servicio.");
+        throw new RuntimeException("Error al actualizar el servicio.", e);
         }
     }
 
@@ -98,23 +107,22 @@ public class ServicioPersistenceAdapter implements ServicioPersistencePort {
 
 
     private void mapToStatement(Servicio servicio, PreparedStatement stmt) throws SQLException {
-        stmt.setInt(1, servicio.getServicio_id());
-        stmt.setString(2, servicio.getNombre());
-        stmt.setString(3, servicio.getDescripcion());
-        stmt.setDate(4, Date.valueOf(servicio.getFecha_inicio()));
-        stmt.setDate(5, Date.valueOf(servicio.getFecha_finalizacion()));
-        stmt.setString(6, servicio.getHora_inicio());
-        stmt.setString(7, servicio.getHora_finalizacion());
-        stmt.setString(8, servicio.getNombre_empleado());
-        stmt.setInt(9, servicio.getPrecio());
-        stmt.setInt(10, servicio.getPorcentaje_iva());
-        stmt.setInt(11, servicio.getValor_iva());
-        stmt.setInt(12, servicio.getPrecio_iva());
-        stmt.setInt(13, servicio.getPrecio_iva_descuento());
-        stmt.setInt(14, servicio.getPrecio_total());
-        stmt.setObject(15, servicio.getCliente_id(), Types.INTEGER);
-        stmt.setObject(16, servicio.getCubiculo_id(), Types.INTEGER);
-        stmt.setObject(17, servicio.getSolicitud_servicio_id(), Types.INTEGER);
+        stmt.setString(1, servicio.getNombre());
+        stmt.setString(2, servicio.getDescripcion());
+        stmt.setDate(3, Date.valueOf(servicio.getFecha_inicio()));
+        stmt.setDate(4, Date.valueOf(servicio.getFecha_finalizacion()));
+        stmt.setString(5, servicio.getHora_inicio());
+        stmt.setString(6, servicio.getHora_finalizacion());
+        stmt.setString(7, servicio.getNombre_empleado());
+        stmt.setInt(8, servicio.getPrecio());
+        stmt.setInt(9, servicio.getPorcentaje_iva());
+        stmt.setInt(10, servicio.getValor_iva());
+        stmt.setInt(11, servicio.getPrecio_iva());
+        stmt.setInt(12, servicio.getPrecio_iva_descuento());
+        stmt.setInt(13, servicio.getPrecio_total());
+        stmt.setObject(14, servicio.getCliente_id(), Types.INTEGER);
+        stmt.setObject(15, servicio.getCubiculo_id(), Types.INTEGER);
+        stmt.setObject(16, servicio.getSolicitud_servicio_id(), Types.INTEGER);
     }
 
      private Servicio mapFromResultSet(ResultSet rs) throws SQLException {
