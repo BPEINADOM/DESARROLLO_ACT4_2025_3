@@ -1,9 +1,9 @@
-package co.edu.udec.lavadero.application.service;
+package co.edu.udec.lavadero.application.service.consulta.empleado;
 
 import java.util.List;
 
 import co.edu.udec.lavadero.adapters.in.dto.EmpleadoInformanteDto;
-import co.edu.udec.lavadero.application.ports.out.EmpleadosInformanProductosPort;
+import co.edu.udec.lavadero.application.ports.out.consulta.EmpleadosInformanProductosPort;
 
 public class ConsultaEmpleadoService {
     private final EmpleadosInformanProductosPort empleadosInformanProductosPort;

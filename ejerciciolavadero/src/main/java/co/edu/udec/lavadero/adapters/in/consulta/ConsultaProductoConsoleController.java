@@ -1,9 +1,9 @@
-package co.edu.udec.lavadero.adapters.in;
+package co.edu.udec.lavadero.adapters.in.consulta;
 
 import java.util.List;
 
 import co.edu.udec.lavadero.adapters.in.dto.ProductoConsultaDto;
-import co.edu.udec.lavadero.application.service.ConsultaProductoService;
+import co.edu.udec.lavadero.application.service.consulta.producto.ConsultaProductoService;
 
 public class ConsultaProductoConsoleController {
 

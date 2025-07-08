@@ -1,4 +1,4 @@
-package co.edu.udec.lavadero.adapters.out;
+package co.edu.udec.lavadero.adapters.out.consulta;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.udec.lavadero.adapters.in.dto.EmpleadoInformanteDto;
-import co.edu.udec.lavadero.application.ports.out.EmpleadosInformanProductosPort;
+import co.edu.udec.lavadero.application.ports.out.consulta.EmpleadosInformanProductosPort;
 
 
 public class ConsultaEmpleadoAdapter implements EmpleadosInformanProductosPort {

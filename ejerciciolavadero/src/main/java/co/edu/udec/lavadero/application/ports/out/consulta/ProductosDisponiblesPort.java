@@ -1,4 +1,4 @@
-package co.edu.udec.lavadero.application.ports.out;
+package co.edu.udec.lavadero.application.ports.out.consulta;
 
 import java.util.List;
 
