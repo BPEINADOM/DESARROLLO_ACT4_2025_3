@@ -17,8 +17,8 @@ public class ConsultaClienteConsoleController {
 
         System.out.println("\n--- Clientes con vehículos registrados ---");
         for (ClienteConVehiculoDto c : clientes) {
-            System.out.printf("ID: %d | Nombre: %s %s | Doc: %s %s | Correo: %s\n",
-                c.cliente_id, c.nombres, c.apellidos, c.tipo_documento, c.numero_documento, c.correo);
+            System.out.printf("ID: %d | Nombre: %s %s | Correo: %s\n",
+                c.cliente_id, c.nombre, c.apellido, c.correo);
         }
     }
 }
