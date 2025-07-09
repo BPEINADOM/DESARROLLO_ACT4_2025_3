@@ -18,9 +18,8 @@ public class ConsultaPreciosProductoConsoleController {
         System.out.println("\n--- Precios de venta de productos ---");
         for (ProductoPrecioDto p : productos) {
             System.out.printf(
-                "ID: %d | %s | Base: $%d | IVA (%d%%): $%d | +IVA: $%d | Descuento: $%d | Total: $%d\n",
-                p.producto_id, p.nombre, p.precio_base, p.porcentaje_iva, p.valor_iva,
-                p.precio_iva, p.precio_iva_descuento, p.precio_total
+                "ID: %d | Nombre: %s | Precio: $%d\n",
+                p.producto_id, p.descripcion, p.precio
             );
         }
     }

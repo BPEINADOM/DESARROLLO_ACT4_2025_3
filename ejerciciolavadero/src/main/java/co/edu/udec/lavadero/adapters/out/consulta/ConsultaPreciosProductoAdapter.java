@@ -23,8 +23,7 @@ public class ConsultaPreciosProductoAdapter implements ProductosConPrecioCalcula
         List<ProductoPrecioDto> lista = new ArrayList<>();
 
         String sql = """
-            SELECT producto_id, descripcion AS nombre_producto, precio AS precio_base,
-                   porcentaje_iva, valor_iva, precio_iva, precio_iva_descuento, precio_total
+            SELECT producto_id, descripcion AS nombre_producto, precio AS precio_base
             FROM producto
         """;
 
@@ -35,12 +34,7 @@ public class ConsultaPreciosProductoAdapter implements ProductosConPrecioCalcula
                 lista.add(new ProductoPrecioDto(
                     rs.getInt("producto_id"),
                     rs.getString("nombre_producto"),
-                    rs.getInt("precio_base"),
-                    rs.getInt("porcentaje_iva"),
-                    rs.getInt("valor_iva"),
-                    rs.getInt("precio_iva"),
-                    rs.getInt("precio_iva_descuento"),
-                    rs.getInt("precio_total")
+                    rs.getInt("precio_base")
                 ));
             }
 

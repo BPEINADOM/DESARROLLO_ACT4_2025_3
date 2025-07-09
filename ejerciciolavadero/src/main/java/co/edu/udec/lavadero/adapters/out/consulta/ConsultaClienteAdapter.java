@@ -22,7 +22,7 @@ public class ConsultaClienteAdapter implements ClientesConVehiculoPort {
         List<ClienteConVehiculoDto> lista = new ArrayList<>();
 
         String sql = """
-            SELECT DISTINCT c.cliente_id, c.nombres, c.apellidos, c.tipo_documento, c.numero_documento, c.correo
+            SELECT DISTINCT c.cliente_id, c.nombre, c.apellido, c.correo
             FROM cliente c
             JOIN vehiculo v ON c.cliente_id = v.cliente_id
         """;
@@ -33,10 +33,8 @@ public class ConsultaClienteAdapter implements ClientesConVehiculoPort {
             while (rs.next()) {
                 lista.add(new ClienteConVehiculoDto(
                     rs.getInt("cliente_id"),
-                    rs.getString("nombres"),
-                    rs.getString("apellidos"),
-                    rs.getString("tipo_documento"),
-                    rs.getString("numero_documento"),
+                    rs.getString("nombre"),
+                    rs.getString("apellido"),
                     rs.getString("correo")
                 ));
             }
