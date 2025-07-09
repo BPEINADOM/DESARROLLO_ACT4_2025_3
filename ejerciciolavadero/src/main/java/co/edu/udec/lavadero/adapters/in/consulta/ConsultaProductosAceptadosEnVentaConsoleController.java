@@ -17,8 +17,8 @@ public class ConsultaProductosAceptadosEnVentaConsoleController {
 
         System.out.println("\nProductos aceptados correctamente en solicitudes de venta:");
         for (ProductoAceptadoEnVentaDto dto : lista) {
-            System.out.printf("Solicitud ID: %d | Producto: %s | Cantidad: %d\n",
-                dto.solicitud_producto_id, dto.nombre_producto, dto.cantidad);
+            System.out.printf("SolicitudID: %d | Producto: %s | Marca: %s | Precio: $%d | Detalle: %s\n",
+                dto.solicitudProductoId, dto.nombreProducto, dto.marca, dto.precio, dto.detalleArticulo);
         }
     }
 }

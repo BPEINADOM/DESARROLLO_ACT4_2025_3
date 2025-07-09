@@ -23,10 +23,9 @@ public class ConsultaProductosAceptadosEnVentaAdapter implements ProductosAcepta
         List<ProductoAceptadoEnVentaDto> lista = new ArrayList<>();
 
         String sql = """
-            SELECT svp.solicitud_venta_producto_id, p.descripcion AS nombre_producto, svp.cantidad
-            FROM solicitudventaproducto svp
-            JOIN producto p ON svp.producto_id = p.producto_id
-            WHERE svp.estado ILIKE 'aceptado'
+            SELECT svp.solicitud_producto_id, svp.detalle_articulo, p.descripcion AS nombre_producto, p.precio, p.marca
+            FROM producto p
+            JOIN solicitudventaproducto svp ON p.solicitud_producto_id = svp.solicitud_producto_id;
         """;
 
         try (Statement stmt = connection.createStatement();
@@ -34,9 +33,11 @@ public class ConsultaProductosAceptadosEnVentaAdapter implements ProductosAcepta
 
             while (rs.next()) {
                 lista.add(new ProductoAceptadoEnVentaDto(
-                    rs.getInt("solicitud_venta_producto_id"),
+                    rs.getInt("solicitud_producto_id"),
+                    rs.getString("detalle_articulo"),
                     rs.getString("nombre_producto"),
-                    rs.getInt("cantidad")
+                    rs.getInt("precio"),
+                    rs.getString("marca")
                 ));
             }
 
