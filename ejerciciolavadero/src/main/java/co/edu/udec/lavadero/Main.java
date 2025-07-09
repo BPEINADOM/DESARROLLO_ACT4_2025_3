@@ -56,11 +56,10 @@ public class Main
                 System.out.println("5. Precios calculados de productos");
                 System.out.println("6. Cotizaciones generadas por empleados");
                 System.out.println("7. Estado de cotizaciones");
-                System.out.println("8. Detalles de notas de corrección");
-                System.out.println("9. Copia de documento de solicitud de venta");
-                System.out.println("10. Productos aceptados en ventas");
-                System.out.println("11. Total de ventas por productos y servicios");
-                System.out.println("12. Detalle de ventas combinadas por orden");
+                System.out.println("8. Copia de documento de solicitud de venta");
+                System.out.println("9. Productos aceptados en ventas");
+                System.out.println("10. Total de ventas por productos y servicios");
+                System.out.println("11. Detalle de ventas combinadas por orden");
                 System.out.println("0. Salir");
                 System.out.print("Seleccione una opción: ");
 
